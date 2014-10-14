@@ -15,8 +15,12 @@ public final class Constantes {
 	public static final String CAMINHO = "C://PROJETOS//";
 
 	public static final String PASTA_ARQUIVOS = "C:\\arquivos\\varjaoclipping\\";
+	
+	public static final String PASTA_ARQUIVOS_LOGO = "C:\\arquivos\\logo\\";
 
 	public static final String PASTA_ARQUIVOS_UPLOAD = "/arquivos/varjaoclipping/";
+	
+	public static final String PASTA_ARQUIVOS_UPLOAD_LOGO = "/arquivos/logo/";
 
 	// public static final String PASTA_ARQUIVOS = "e:\\arquivos\\varjao\\";
 

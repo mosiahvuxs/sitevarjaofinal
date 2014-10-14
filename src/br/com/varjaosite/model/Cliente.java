@@ -319,11 +319,11 @@ public class Cliente implements Serializable {
 
 			if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
 
-				this.logoMarcaFormatada = Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.logomarca;
+				this.logoMarcaFormatada = Constantes.PASTA_ARQUIVOS_UPLOAD_LOGO + this.logomarca;
 
 			} else {
 
-				this.logoMarcaFormatada = Constantes.URL_SITE_PRODUCAO + Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.logomarca;
+				this.logoMarcaFormatada = Constantes.URL_SITE_PRODUCAO + Constantes.PASTA_ARQUIVOS_UPLOAD_LOGO + this.logomarca;
 			}
 
 		}
