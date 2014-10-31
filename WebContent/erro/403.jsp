@@ -7,7 +7,7 @@
  <TABLE cellpadding="30" align="center" style="margin-top: 50px;">
  <TR>
 	<TD>
-	  <span style="font-size: 50px;color:#c0c0c0;">Varjão Clipping</span>
+	  <span style="font-size: 50px;color:#c0c0c0;">Varjao Clipping</span>
 	  <p><b>403.</b> <ins>Acesso negado.</ins>
 	  <p>Verifique se a URL foi digitada corretamente.</p>  	
 	</TD>

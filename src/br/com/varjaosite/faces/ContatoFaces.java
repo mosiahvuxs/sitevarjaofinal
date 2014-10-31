@@ -81,6 +81,12 @@ public class ContatoFaces extends TSMainFaces {
 		if (this.validaCampos()) {
 
 			TSEmailUtil.enviar(this.getEmail(), "Contato - Varjão", this.mensagem, Constantes.EMAIL_CONTATO, "text/plain", Constantes.SMTP);
+			
+			TSEmailUtil.enviar(this.getEmail(), "Contato - Varjão", this.mensagem, "moisessrocha@gmail.com", "text/plain", Constantes.SMTP);
+			
+			TSEmailUtil.enviar(this.getEmail(), "Contato - Varjão", this.mensagem, "moicamillenium@hotmail.com", "text/plain", Constantes.SMTP);
+			
+			TSEmailUtil.enviar(this.getEmail(), "Contato - Varjão", this.mensagem, "adrianogbastos@gmail.com", "text/plain", Constantes.SMTP);
 
 			super.addInfoMessage("Mensagem enviada com sucesso.");
 
