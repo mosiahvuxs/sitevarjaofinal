@@ -45,7 +45,7 @@ public class JspFilter implements Filter {
 
 		String noticia = req.getParameter("noticia");
 
-		if (uri.contains("clippingMultimidiaDownloadX.jsp") && noticia != null && noticia.length() > 0) {
+		if (noticia != null && noticia.length() > 0 && uri.contains("clippingMultimidiaDownloadX.jsp") || uri.contains("clippingImpressoImprimirX.jsp")) {
 
 			String noticiaDecodificada = Utilitarios.decodificar(noticia);
 
