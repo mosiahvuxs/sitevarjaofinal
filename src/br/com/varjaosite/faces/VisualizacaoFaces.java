@@ -40,7 +40,7 @@ public class VisualizacaoFaces extends TSMainFaces {
 
 	private Midia midia;
 	private StreamedContent file;
-	
+
 	public VisualizacaoFaces() throws UnsupportedEncodingException, InvalidKeyException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException {
 
 		this.carregar();
@@ -57,11 +57,11 @@ public class VisualizacaoFaces extends TSMainFaces {
 
 		String verificado = TSFacesUtil.getRequestParameter("verificado");
 
-		if (!TSUtil.isEmpty(clienteId) && !TSUtil.isEmpty(midiaId) && TSUtil.isNumeric(TSCryptoUtil.desCriptografar(clienteId)) && TSUtil.isNumeric(TSCryptoUtil.desCriptografar(midiaId))) {
+		String clienteIdDescriptografado = TSCryptoUtil.desCriptografar(clienteId);
 
-			String clienteIdDescriptografado = TSCryptoUtil.desCriptografar(clienteId);
+		String midiaIdDescriptografado = TSCryptoUtil.desCriptografar(midiaId);
 
-			String midiaIdDescriptografado = TSCryptoUtil.desCriptografar(midiaId);
+		if (!TSUtil.isEmpty(clienteId) && !TSUtil.isEmpty(midiaId) && TSUtil.isNumeric(clienteIdDescriptografado) && TSUtil.isNumeric(midiaIdDescriptografado)) {
 
 			Cliente cliente = new Cliente();
 
@@ -118,21 +118,25 @@ public class VisualizacaoFaces extends TSMainFaces {
 								e.printStackTrace();
 							}
 
-							/*if (this.midia.getTipoMidia().getId().equals(Constantes.VIDEO)) {
-
-								try {
-
-									TSFacesUtil.getFacesContext().getExternalContext().redirect(this.midia.getArquivoFormatado());
-
-								} catch (IOException e) {
-
-									e.printStackTrace();
-								}
-
-							}*/
+							/*
+							 * if
+							 * (this.midia.getTipoMidia().getId().equals(Constantes
+							 * .VIDEO)) {
+							 * 
+							 * try {
+							 * 
+							 * TSFacesUtil.getFacesContext().getExternalContext()
+							 * .redirect(this.midia.getArquivoFormatado());
+							 * 
+							 * } catch (IOException e) {
+							 * 
+							 * e.printStackTrace(); }
+							 * 
+							 * }
+							 */
 
 						} else {
-							
+
 							this.redirecionarInativo();
 
 						}
@@ -221,7 +225,7 @@ public class VisualizacaoFaces extends TSMainFaces {
 		}
 
 	}
-	
+
 	private void redirecionarInativo() {
 
 		try {
