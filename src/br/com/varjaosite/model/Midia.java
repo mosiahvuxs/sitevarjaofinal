@@ -334,15 +334,15 @@ public class Midia implements Serializable {
 
 	public boolean isArquivoEmDisco() {
 
-		if (!TSUtil.isEmpty(this.arquivo) && !TSUtil.isEmpty(this.data)) {
+		if (!TSUtil.isEmpty(this.arquivo) && !TSUtil.isEmpty(this.dataCadastro)) {
 
 			if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
 
-				return new File(Constantes.PASTA_ARQUIVOS + TSParseUtil.dateToString(this.data, TSDateUtil.YYYY) + "\\" + TSParseUtil.dateToString(this.data, TSDateUtil.MM) + "\\" + this.arquivo).exists();
+				return new File(Constantes.PASTA_ARQUIVOS + TSParseUtil.dateToString(this.dataCadastro, TSDateUtil.YYYY) + "\\" + TSParseUtil.dateToString(this.dataCadastro, TSDateUtil.MM) + "\\" + this.arquivo).exists();
 
 			} else {
 
-				return new File(Constantes.PASTA_ARQUIVOS_UPLOAD + TSParseUtil.dateToString(this.data, TSDateUtil.YYYY) + "/" + TSParseUtil.dateToString(this.data, TSDateUtil.MM) + "/" + this.arquivo).exists();
+				return new File(Constantes.PASTA_ARQUIVOS_UPLOAD + TSParseUtil.dateToString(this.dataCadastro, TSDateUtil.YYYY) + "/" + TSParseUtil.dateToString(this.dataCadastro, TSDateUtil.MM) + "/" + this.arquivo).exists();
 			}
 		}
 		return arquivoEmDisco;
@@ -354,15 +354,15 @@ public class Midia implements Serializable {
 
 	public String getArquivoFormatado() {
 
-		if (!TSUtil.isEmpty(this.arquivo)) {
+		if (!TSUtil.isEmpty(this.arquivo) && !TSUtil.isEmpty(this.dataCadastro)) {
 
 			if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
 
-				this.arquivoFormatado = Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.data) + this.arquivo;
+				this.arquivoFormatado = Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.arquivo;
 
 			} else {
 
-				this.arquivoFormatado = Constantes.URL_SITE_PRODUCAO + Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.data) + this.arquivo;
+				this.arquivoFormatado = Constantes.URL_SITE_PRODUCAO + Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.arquivo;
 			}
 
 		}

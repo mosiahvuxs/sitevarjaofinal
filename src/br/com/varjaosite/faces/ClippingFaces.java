@@ -163,7 +163,7 @@ public class ClippingFaces extends TSMainFaces {
 
 		try {
 
-			File arquivo = new File(Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.midia.getData()) + this.midia.getArquivo());
+			File arquivo = new File(Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.midia.getDataCadastro()) + this.midia.getArquivo());
 
 			byte[] b = Utilitarios.getBytes(arquivo);
 
