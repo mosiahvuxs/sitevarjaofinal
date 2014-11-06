@@ -74,7 +74,7 @@ public class Midia implements Serializable {
 
 	private boolean exibirValoracao;
 
-	private String valoracao;
+	private String valoracao, reporter;
 
 	private boolean mp4;
 
@@ -241,6 +241,25 @@ public class Midia implements Serializable {
 	}
 
 	public String getArquivo() {
+		
+		if (!TSUtil.isEmpty(this.tipoMidia) && !TSUtil.isEmpty(this.tipoMidia.getId())) {
+
+			if (this.tipoMidia.getId().equals(Constantes.AUDIO)) {
+				
+				this.arquivo = this.audio.getArquivo();
+
+			} else if (this.tipoMidia.getId().equals(Constantes.VIDEO)) {
+				
+				this.arquivo = this.video.getArquivo();
+
+			} else if (this.tipoMidia.getId().equals(Constantes.IMPRESSO)) {
+
+				this.arquivo = this.impresso.getArquivo();
+
+			}
+
+		} 
+		
 		return arquivo;
 	}
 
@@ -482,6 +501,14 @@ public class Midia implements Serializable {
 
 	public void setMp4(boolean mp4) {
 		this.mp4 = mp4;
+	}
+
+	public String getReporter() {
+		return reporter;
+	}
+
+	public void setReporter(String reporter) {
+		this.reporter = reporter;
 	}
 
 }

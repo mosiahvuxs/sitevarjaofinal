@@ -47,6 +47,7 @@ public class ClippingFaces extends TSMainFaces {
 	public ClippingFaces() {
 
 		this.initObjetos();
+
 	}
 
 	private void initObjetos() {
@@ -86,31 +87,7 @@ public class ClippingFaces extends TSMainFaces {
 
 				this.midias = new MidiaDAO().pesquisar(this.getMidiaEnvio());
 
-				if (!TSUtil.isEmpty(this.getMidias())) {
-
-					for (Midia item : this.getMidias()) {
-
-						if (Constantes.AUDIO.equals(item.getTipoMidia().getId())) {
-
-							item.setArquivo(item.getAudio().getArquivo());
-
-						} else if (Constantes.VIDEO.equals(item.getTipoMidia().getId())) {
-
-							item.setArquivo(item.getVideo().getArquivo());
-
-						} else if (Constantes.IMPRESSO.equals(item.getTipoMidia().getId())) {
-
-							item.setArquivo(item.getImpresso().getArquivo());
-
-						} else if (Constantes.WEB.equals(item.getTipoMidia().getId())) {
-
-							item.setArquivo(item.getWeb().getArquivo());
-						}
-					}
-				}
-
 				TSFacesUtil.gerarResultadoLista(this.midias);
-
 			}
 
 		} else {

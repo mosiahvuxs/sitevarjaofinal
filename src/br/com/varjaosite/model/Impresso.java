@@ -20,6 +20,8 @@ public class Impresso implements Serializable {
 	private String url;
 
 	private Midia midia;
+	
+	private String reporter;
 
 	public Long getId() {
 		return id;
@@ -100,6 +102,14 @@ public class Impresso implements Serializable {
 
 	public void setNumeroPagina(String numeroPagina) {
 		this.numeroPagina = numeroPagina;
+	}
+
+	public String getReporter() {
+		return reporter;
+	}
+
+	public void setReporter(String reporter) {
+		this.reporter = reporter;
 	}
 
 }

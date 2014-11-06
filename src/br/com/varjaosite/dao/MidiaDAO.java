@@ -205,8 +205,9 @@ public class MidiaDAO {
 		TSDataBaseBrokerIf broker = TSDataBaseBrokerFactory.getDataBaseBrokerIf();
 
 		StringBuilder sql = new StringBuilder();
-
-		sql.append("SELECT IMP.NUMERO_PAGINA, AU.DURACAO, VI.DURACAO, M.DATA_CADASTRO, M.ID, AU.ARQUIVO AUDIO, VI.ARQUIVO VIDEO, IMP.ARQUIVO IMPRESSO, W.ARQUIVO ONLINE, M.TITULO, M.CHAMADA, A.ID AVALIACAO_ID, A.DESCRICAO, M.TIPO_MIDIA_ID, TM.DESCRICAO, M.DATA, IMP.CONTEUDO, W.CONTEUDO, W.URL, S.DESCRICAO, V.DESCRICAO FROM MIDIA_ENVIOS ME INNER JOIN MIDIAS M ON ME.MIDIA_ID = M.ID INNER JOIN AVALIACOES A ON A.ID = M.AVALIACAO_ID INNER JOIN TIPO_MIDIAS TM ON TM.ID = M.TIPO_MIDIA_ID LEFT OUTER JOIN AUDIOS AU ON AU.MIDIA_ID = M.ID LEFT OUTER JOIN VIDEOS VI ON VI.MIDIA_ID = M.ID LEFT OUTER JOIN IMPRESSOS IMP ON IMP.MIDIA_ID = M.ID LEFT OUTER JOIN WEB W ON W.MIDIA_ID = M.ID LEFT OUTER JOIN SECOES S ON M.SECAO_ID = S.ID LEFT OUTER JOIN VEICULOS V ON V.ID = S.VEICULO_ID WHERE M.FLAG_ATIVO");
+		
+		sql.append("SELECT M.ID, M.DATA, M.FLAG_ATIVO, M.SECAO_ID, S.VEICULO_ID, M.PAUTA_ID, M.AVALIACAO_ID, M.TIPO_MIDIA_ID, TM.DESCRICAO, M.USUARIO_ID, M.TITULO, M.CHAMADA, M.FLAG_ENVIADO, I.ID, I.NUMERO_PAGINA, I.TAMANHO, I.ARQUIVO, I.CONTEUDO, A.ID, A.ARQUIVO, A.DURACAO, A.REPRESENTANTE_ID, V.ID, V.ARQUIVO, V.DURACAO, V.REPRESENTANTE_ID, W.ID, W.NUMERO_PAGINA, W.PIXELS, W.ARQUIVO, W.URL, W.CONTEUDO, M.REPORTER, M.DATA_CADASTRO, S.DESCRICAO, VEI.DESCRICAO, UPPER(USU.NOME) USUARIO, AVA.DESCRICAO FROM PUBLIC.MIDIAS M LEFT OUTER JOIN IMPRESSOS I ON I.MIDIA_ID = M.ID LEFT OUTER JOIN AUDIOS A ON A.MIDIA_ID = M.ID LEFT OUTER JOIN VIDEOS V ON V.MIDIA_ID = M.ID LEFT OUTER JOIN WEB W ON W.MIDIA_ID = M.ID LEFT OUTER JOIN TIPO_MIDIAS TM ON M.TIPO_MIDIA_ID = TM.ID LEFT OUTER JOIN SECOES S ON M.SECAO_ID = S.ID LEFT OUTER JOIN VEICULOS VEI ON VEI.ID = S.VEICULO_ID INNER JOIN USUARIOS USU ON USU.ID = M.USUARIO_ID INNER JOIN AVALIACOES AVA ON AVA.ID = M.AVALIACAO_ID WHERE 1 = 1 AND M.FLAG_ATIVO");
+		//sql.append("SELECT IMP.NUMERO_PAGINA, AU.DURACAO, VI.DURACAO, M.DATA_CADASTRO, M.ID, AU.ARQUIVO AUDIO, VI.ARQUIVO VIDEO, IMP.ARQUIVO IMPRESSO, W.ARQUIVO ONLINE, M.TITULO, M.CHAMADA, A.ID AVALIACAO_ID, A.DESCRICAO, M.TIPO_MIDIA_ID, TM.DESCRICAO, M.DATA, IMP.CONTEUDO, W.CONTEUDO, W.URL, S.DESCRICAO, V.DESCRICAO FROM MIDIA_ENVIOS ME INNER JOIN MIDIAS M ON ME.MIDIA_ID = M.ID INNER JOIN AVALIACOES A ON A.ID = M.AVALIACAO_ID INNER JOIN TIPO_MIDIAS TM ON TM.ID = M.TIPO_MIDIA_ID LEFT OUTER JOIN AUDIOS AU ON AU.MIDIA_ID = M.ID LEFT OUTER JOIN VIDEOS VI ON VI.MIDIA_ID = M.ID LEFT OUTER JOIN IMPRESSOS IMP ON IMP.MIDIA_ID = M.ID LEFT OUTER JOIN WEB W ON W.MIDIA_ID = M.ID LEFT OUTER JOIN SECOES S ON M.SECAO_ID = S.ID LEFT OUTER JOIN VEICULOS V ON V.ID = S.VEICULO_ID WHERE M.FLAG_ATIVO");
 
 		if (!TSUtil.isEmpty(model.getMidia().getAvaliacao()) && !TSUtil.isEmpty(TSUtil.tratarLong(model.getMidia().getAvaliacao().getId()))) {
 
@@ -230,11 +231,11 @@ public class MidiaDAO {
 
 		sql.append(" AND CAST(M.DATA AS DATE) BETWEEN TO_DATE(?, 'DD/MM/YYYY') AND TO_DATE(?, 'DD/MM/YYYY')");
 
-		sql.append(" AND ME.CLIENTE_ID = ?");
+		sql.append(" AND EXISTS (SELECT 1 FROM MIDIA_CLIENTE_INTERESSES MCI WHERE MCI.MIDIA_ID = M.ID AND MCI.CLIENTE_ID = ?)");
 
-		sql.append(" GROUP BY IMP.NUMERO_PAGINA, AU.DURACAO, VI.DURACAO, M.ID, AU.ARQUIVO, VI.ARQUIVO, IMP.ARQUIVO, W.ARQUIVO, M.TITULO, M.CHAMADA, A.ID, A.DESCRICAO, M.TIPO_MIDIA_ID, TM.DESCRICAO, M.DATA, IMP.CONTEUDO, W.CONTEUDO, W.URL,S.DESCRICAO, V.DESCRICAO");
+		//sql.append(" GROUP BY IMP.NUMERO_PAGINA, AU.DURACAO, VI.DURACAO, M.ID, AU.ARQUIVO, VI.ARQUIVO, IMP.ARQUIVO, W.ARQUIVO, M.TITULO, M.CHAMADA, A.ID, A.DESCRICAO, M.TIPO_MIDIA_ID, TM.DESCRICAO, M.DATA, IMP.CONTEUDO, W.CONTEUDO, W.URL,S.DESCRICAO, V.DESCRICAO");
 		
-		sql.append(" ORDER BY A.ORDEM, M.DATA DESC");
+		sql.append(" ORDER BY AVA.ORDEM, M.DATA DESC");
 
 		broker.setSQL(sql.toString());
 
@@ -263,8 +264,10 @@ public class MidiaDAO {
 		broker.set(TSParseUtil.dateToString(model.getDataEnvioFinal(), TSDateUtil.DD_MM_YYYY));
 
 		broker.set(model.getCliente().getId());
+		
+		return broker.getCollectionBean(Midia.class, "id", "data", "flagAtivo", "secao.id", "veiculo.id", "pauta.id", "avaliacao.id", "tipoMidia.id", "tipoMidia.descricao", "usuario.id", "titulo", "chamada", "flagEnviado", "impresso.id", "impresso.numeroPagina", "impresso.tamanho", "impresso.arquivo", "impresso.conteudo", "audio.id", "audio.arquivo", "audio.duracao", "audio.representante.id", "video.id", "video.arquivo", "video.duracao", "video.representante.id", "web.id", "web.numeroPagina", "web.pixels", "web.arquivo", "web.url", "web.conteudo", "reporter", "dataCadastro", "secao.descricao", "secao.veiculo.descricao", "usuario.nome", "avaliacao.descricao");
 
-		return broker.getCollectionBean(Midia.class, "impresso.numeroPagina", "audio.duracao", "video.duracao", "dataCadastro", "id", "audio.arquivo", "video.arquivo", "impresso.arquivo", "web.arquivo", "titulo", "chamada", "avaliacao.id", "avaliacao.descricao", "tipoMidia.id", "tipoMidia.descricao", "data", "impresso.conteudo", "web.conteudo", "web.url", "secao.descricao", "secao.veiculo.descricao");
+		//return broker.getCollectionBean(Midia.class, "impresso.numeroPagina", "audio.duracao", "video.duracao", "dataCadastro", "id", "audio.arquivo", "video.arquivo", "impresso.arquivo", "web.arquivo", "titulo", "chamada", "avaliacao.id", "avaliacao.descricao", "tipoMidia.id", "tipoMidia.descricao", "data", "impresso.conteudo", "web.conteudo", "web.url", "secao.descricao", "secao.veiculo.descricao");
 	}
 
 	public Midia obter(Midia model) {
