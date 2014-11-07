@@ -6,11 +6,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.Normalizer;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -225,7 +229,7 @@ public final class Utilitarios {
 		}
 
 	}
-	
+
 	public static Integer valorEmSegundos(String duracao) {
 
 		if (duracao.length() == 8) {
@@ -243,5 +247,21 @@ public final class Utilitarios {
 		}
 
 		return 0;
+	}
+
+	public static String formatarMoeda(Double valor) {
+
+		String valorFormatado = "";
+
+		if (!TSUtil.isEmpty(valor)) {
+
+			NumberFormat nf = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(new Locale("pt", "BR")));
+
+			valorFormatado = nf.format(valor);
+
+		}
+
+		return valorFormatado;
+
 	}
 }

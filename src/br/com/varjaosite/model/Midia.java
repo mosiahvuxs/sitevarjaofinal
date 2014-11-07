@@ -241,15 +241,15 @@ public class Midia implements Serializable {
 	}
 
 	public String getArquivo() {
-		
+
 		if (!TSUtil.isEmpty(this.tipoMidia) && !TSUtil.isEmpty(this.tipoMidia.getId())) {
 
 			if (this.tipoMidia.getId().equals(Constantes.AUDIO)) {
-				
+
 				this.arquivo = this.audio.getArquivo();
 
 			} else if (this.tipoMidia.getId().equals(Constantes.VIDEO)) {
-				
+
 				this.arquivo = this.video.getArquivo();
 
 			} else if (this.tipoMidia.getId().equals(Constantes.IMPRESSO)) {
@@ -258,8 +258,8 @@ public class Midia implements Serializable {
 
 			}
 
-		} 
-		
+		}
+
 		return arquivo;
 	}
 
@@ -473,6 +473,9 @@ public class Midia implements Serializable {
 
 				this.valoracao = this.getSecao().getValor().multiply(new BigDecimal(this.web.getPixels().toString())).toString();
 			}
+
+			this.valoracao = Utilitarios.formatarMoeda(new Double(this.valoracao));
+
 		}
 
 		return valoracao;
