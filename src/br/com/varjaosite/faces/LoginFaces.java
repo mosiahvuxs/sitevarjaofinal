@@ -163,7 +163,7 @@ public class LoginFaces extends TSMainFaces {
 
 	public String sair() {
 
-		this.clearFields();
+		this.initObjetos();
 
 		TSFacesUtil.removeObjectInSession(Constantes.USUARIO_CONECTADO);
 
