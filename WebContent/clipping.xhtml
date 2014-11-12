@@ -253,7 +253,10 @@ jQuery(function($){
 		    	#{item.titulo}
         	</div>
 		    <div class="clipping-descricao">
-		    	Publicado em: <h:outputText value="#{item.data}"><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText>, #{item.secao.veiculo.descricao}, #{item.secao.descricao}
+		    	Publicado em: <h:outputText value="#{item.data}"><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText>
+		    	<h:panelGroup rendered="#{!empty item.horaPublicacaoFormatada and item.tipoMidia.id==1 || item.tipoMidia.id==2}">	
+		    	<h:outputText value=" #{item.horaPublicacaoFormatada}"/>
+		    	</h:panelGroup>, #{item.secao.veiculo.descricao}, #{item.secao.descricao}
 		    	<h:panelGroup rendered="#{!empty item.impresso.numeroPagina}">, Pag. #{item.impresso.numeroPagina}</h:panelGroup>
 		    	<h:panelGroup rendered="#{item.tipoMidia.id==1}">Duração: #{item.audio.duracao}</h:panelGroup>
 		    	<h:panelGroup rendered="#{item.tipoMidia.id==2}">Duração: #{item.video.duracao}</h:panelGroup>

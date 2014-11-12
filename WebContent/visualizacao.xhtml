@@ -121,7 +121,10 @@ jQuery(function($){
 			</audio>
 		    <div class="clipping-info-wrapper">
 		    <div class="clipping-info-radio">
-			    <div class="clipping-info">Publicado em: <h:outputText value="#{visualizacaoFaces.midia.data}"><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText></div>
+			    <div class="clipping-info">
+			    Publicado em: <h:outputText value="#{visualizacaoFaces.midia.data}"><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText>
+			    <h:outputText value=" #{visualizacaoFaces.midia.horaPublicacaoFormatada}"/>
+			    </div>
 				<div class="clipping-info">Fonte: #{visualizacaoFaces.midia.secao.veiculo.descricao}, #{visualizacaoFaces.midia.secao.descricao}</div>
 				<div class="clipping-info">Duração: #{visualizacaoFaces.midia.audio.duracao}</div>
 				<h:panelGroup rendered="#{visualizacaoFaces.midia.exibirValoracao}">
@@ -183,7 +186,9 @@ jQuery(function($){
 		    </div>
 		    <div class="clipping-info-wrapper">
 			<div class="clipping-info-mailing">
-			  	<div class="clipping-info">Publicado em: <h:outputText value="#{visualizacaoFaces.midia.data}"><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText></div>
+			  	<div class="clipping-info">Publicado em: <h:outputText value="#{visualizacaoFaces.midia.data}"><f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+			  	</h:outputText><h:outputText value=" #{visualizacaoFaces.midia.horaPublicacaoFormatada}"/>
+			  	</div>
 			 	<div class="clipping-info">Fonte: #{visualizacaoFaces.midia.secao.veiculo.descricao}, #{visualizacaoFaces.midia.secao.descricao}</div>
 			 	<div class="clipping-info">Duração: #{visualizacaoFaces.midia.video.duracao}</div>
 			 	<h:panelGroup rendered="#{visualizacaoFaces.midia.exibirValoracao}">

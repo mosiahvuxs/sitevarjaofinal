@@ -74,9 +74,11 @@ public class Midia implements Serializable {
 
 	private boolean exibirValoracao;
 
-	private String valoracao, reporter;
+	private String valoracao, reporter, horaPublicacaoFormatada;
 
 	private boolean mp4;
+
+	private Timestamp horaPublicacao;
 
 	public Midia() {
 
@@ -469,12 +471,19 @@ public class Midia implements Serializable {
 
 				this.valoracao = this.getSecao().getValor().multiply(new BigDecimal(this.impresso.getTamanho().toString())).toString();
 
-			} else if (!TSUtil.isEmpty(this.web) && !TSUtil.isEmpty(this.web.getId())) {
+			} else if (!TSUtil.isEmpty(this.web) && !TSUtil.isEmpty(this.web.getId()) && !TSUtil.isEmpty(this.web.getPixels())) {
 
 				this.valoracao = this.getSecao().getValor().multiply(new BigDecimal(this.web.getPixels().toString())).toString();
 			}
 
-			this.valoracao = Utilitarios.formatarMoeda(new Double(this.valoracao));
+			if (TSUtil.isEmpty(TSUtil.tratarString(this.valoracao))) {
+
+				this.valoracao = "0,00";
+
+			} else {
+
+				this.valoracao = Utilitarios.formatarMoeda(new Double(this.valoracao));
+			}
 
 		}
 
@@ -512,6 +521,28 @@ public class Midia implements Serializable {
 
 	public void setReporter(String reporter) {
 		this.reporter = reporter;
+	}
+
+	public Timestamp getHoraPublicacao() {
+		return horaPublicacao;
+	}
+
+	public void setHoraPublicacao(Timestamp horaPublicacao) {
+		this.horaPublicacao = horaPublicacao;
+	}
+
+	public String getHoraPublicacaoFormatada() {
+
+		if (!TSUtil.isEmpty(this.horaPublicacao)) {
+
+			this.horaPublicacaoFormatada = TSParseUtil.dateToString(this.horaPublicacao, TSDateUtil.HH_MM);
+		}
+
+		return horaPublicacaoFormatada;
+	}
+
+	public void setHoraPublicacaoFormatada(String horaPublicacaoFormatada) {
+		this.horaPublicacaoFormatada = horaPublicacaoFormatada;
 	}
 
 }

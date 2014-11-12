@@ -2,15 +2,14 @@
 <HTML>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 <HEAD>
-<TITLE>Error 500 (Internal server error)</TITLE>
+<TITLE>Erro 500 (Erro Interno no Servidor)</TITLE>
 </HEAD>
 <BODY style="font-family: arial, tahoma;">
 	<TABLE cellpadding="30" align="center" style="margin-top: 50px;">
 		<TR>
 			<TD><span style="font-size: 50px; color: #c0c0c0;">Varjao Clipping</span>
 				<p>
-					<b>500.</b>
-					<ins>Ocorreu um erro.</ins>
+					<b>500. Erro interno no Servidor</b>
 		</TR>
 	</TABLE>
 </BODY> 

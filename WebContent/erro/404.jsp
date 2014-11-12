@@ -2,6 +2,7 @@
 <HTML>
  <HEAD>
   <TITLE>Error 404 (Not Found)</TITLE>
+  <TITLE>Erro 404 (Endereço não encontrado)</TITLE>
  </HEAD>
  <BODY style="font-family: arial, tahoma;">
  <TABLE cellpadding="30" align="center" style="margin-top: 50px;">
