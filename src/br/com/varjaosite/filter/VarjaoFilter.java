@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.topsys.util.TSUtil;
 import br.com.varjaosite.model.Cliente;
+import br.com.varjaosite.util.Constantes;
 
 @WebFilter("*.xhtml")
 public class VarjaoFilter implements Filter {
@@ -44,6 +45,11 @@ public class VarjaoFilter implements Filter {
 
 			response.sendRedirect(request.getContextPath() + "/login.xhtml");
 
+		}
+
+		if (uri.equals("index.xhtml")) {
+
+			request.getSession().removeAttribute(Constantes.USUARIO_CONECTADO);
 		}
 
 		if (!response.isCommitted()) {
