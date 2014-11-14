@@ -186,6 +186,8 @@ public class VisualizacaoFaces extends TSMainFaces {
 			this.tratarArquivo();
 
 			super.addObjectInSession(Constantes.USUARIO_CONECTADO, cliente);
+			
+			TSFacesUtil.resetManagedBean("clippingFaces");
 
 			return true;
 		}

@@ -135,6 +135,8 @@ public class LoginFaces extends TSMainFaces {
 				if (TSUtil.isEmpty(clienteId) && TSUtil.isEmpty(this.midiaId)) {
 
 					super.addObjectInSession(Constantes.USUARIO_CONECTADO, this.cliente);
+					
+					TSFacesUtil.resetManagedBean("clippingFaces");
 
 					return Constantes.CLIPPING;
 

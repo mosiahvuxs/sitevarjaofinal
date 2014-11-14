@@ -243,25 +243,20 @@ public class Midia implements Serializable {
 	}
 
 	public String getArquivo() {
+		
+		if (!TSUtil.isEmpty(this.arquivo) && !TSUtil.isEmpty(this.dataCadastro)) {
 
-		if (!TSUtil.isEmpty(this.tipoMidia) && !TSUtil.isEmpty(this.tipoMidia.getId())) {
+			if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
 
-			if (this.tipoMidia.getId().equals(Constantes.AUDIO)) {
+				this.arquivoFormatado = Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.arquivo;
 
-				this.arquivo = this.audio.getArquivo();
+			} else {
 
-			} else if (this.tipoMidia.getId().equals(Constantes.VIDEO)) {
-
-				this.arquivo = this.video.getArquivo();
-
-			} else if (this.tipoMidia.getId().equals(Constantes.IMPRESSO)) {
-
-				this.arquivo = this.impresso.getArquivo();
-
+				this.arquivoFormatado = Constantes.URL_SITE_PRODUCAO + Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.arquivo;
 			}
 
 		}
-
+		
 		return arquivo;
 	}
 
@@ -377,14 +372,7 @@ public class Midia implements Serializable {
 
 		if (!TSUtil.isEmpty(this.arquivo) && !TSUtil.isEmpty(this.dataCadastro)) {
 
-			if (TSFacesUtil.getRequest().getServerName().contains("localhost")) {
-
-				this.arquivoFormatado = Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.arquivo;
-
-			} else {
-
-				this.arquivoFormatado = Constantes.URL_SITE_PRODUCAO + Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.arquivo;
-			}
+			this.arquivoFormatado = Constantes.URL_SITE_PRODUCAO + Constantes.PASTA_ARQUIVOS_UPLOAD + TSUtil.getAnoMes(this.dataCadastro) + this.arquivo;
 
 		}
 

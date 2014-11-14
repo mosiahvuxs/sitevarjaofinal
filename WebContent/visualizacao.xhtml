@@ -226,7 +226,7 @@ jQuery(function($){
   <h:panelGroup rendered="#{visualizacaoFaces.midia.tipoMidia.id==3}">
   <div class="clipping-mailing-impresso">
     <div class="clipping-title">#{visualizacaoFaces.midia.titulo}</div>
-    <div class="content-clipping-impresso"><img src="#{facesContext.externalContext.requestContextPath}#{visualizacaoFaces.midia.arquivoFormatado}" border="0"/></div>
+    <div class="content-clipping-impresso"><img src="#{visualizacaoFaces.midia.arquivoFormatado}" border="0"/></div>
     <div class="clipping-info-wrapper">
       <div class="clipping-info-mailing">
         <div class="clipping-info">Publicado em: <h:outputText value="#{visualizacaoFaces.midia.data}"><f:convertDateTime type="date" pattern="dd/MM/yyyy"/></h:outputText></div>
