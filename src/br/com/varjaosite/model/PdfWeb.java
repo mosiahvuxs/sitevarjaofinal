@@ -25,7 +25,7 @@ public class PdfWeb implements Serializable {
 	public PdfWeb(Midia model) {
 
 		this.titulo = model.getTitulo();
-		this.dataPublicacao = model.getDataCadastro();
+		this.dataPublicacao = model.getData();
 		this.fonte = model.getSecao().getVeiculo().getDescricao();
 		this.programa = model.getSecao().getDescricao();
 		this.url = model.getWeb().getUrl();
