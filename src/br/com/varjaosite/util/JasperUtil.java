@@ -13,6 +13,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import br.com.topsys.util.TSStringUtil;
 import br.com.topsys.util.TSUtil;
 import br.com.topsys.web.util.TSFacesUtil;
 import br.com.varjaosite.model.PdfWeb;
@@ -39,7 +40,7 @@ public class JasperUtil {
 
 			response.setContentType(Constantes.MIME_TYPE_PDF);
 
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + model.getTitulo().toLowerCase()  + "-" + TSUtil.gerarId() + ".pdf\"");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + TSStringUtil.removerNaoAlfaNumerico(model.getTitulo().toLowerCase()) + "_" + TSUtil.gerarId() + ".pdf\"");
 
 			try {
 
