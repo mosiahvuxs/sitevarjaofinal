@@ -79,6 +79,8 @@ public class Midia implements Serializable {
 	private boolean mp4;
 
 	private Timestamp horaPublicacao;
+	
+	private String tags;
 
 	public Midia() {
 
@@ -531,6 +533,29 @@ public class Midia implements Serializable {
 
 	public void setHoraPublicacaoFormatada(String horaPublicacaoFormatada) {
 		this.horaPublicacaoFormatada = horaPublicacaoFormatada;
+	}
+
+	public String getTags() {
+		
+		if (!TSUtil.isEmpty(TSUtil.tratarString(this.tags))) {
+
+			this.tags = this.tags.replaceAll("\"", "");
+
+			if (this.tags.contains("{") || this.tags.contains("}")) {
+
+				this.tags = this.tags.substring(0).replace("{", "");
+
+				this.tags = this.tags.substring(0, this.tags.length() - 1);
+
+				return tags;
+			}
+		}
+		
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 }

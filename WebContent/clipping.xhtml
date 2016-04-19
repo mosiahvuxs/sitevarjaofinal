@@ -111,7 +111,9 @@ jQuery(function($){
       	<p:outputPanel id="otpPesquisa">
 		
 		<div class="busca-avancada-wrapper">
-  		
+		
+		
+        
   		<div class="field-container">
           <div class="field-wrapper">
             <div class="radio-btn"></div>
@@ -157,8 +159,15 @@ jQuery(function($){
 	      		<f:selectItem itemLabel="CONHECIMENTO" itemValue="5"/>
 	      	</h:selectOneMenu>
           </div>
+          
         </div>
         
+        <div class="field-container">
+  		<div class="field-wrapper">
+          <div class="radio-btn"></div>
+          <h:inputText value="#{clippingFaces.midiaEnvio.midia.tags}" id="tags" styleClass="chamada"/>
+        </div>
+        </div>
         <script type="text/javascript">
 	         $('#dataPublicacaoInicial').attr('placeholder','DATA INICIAL');
 	    </script>
@@ -170,6 +179,9 @@ jQuery(function($){
 	    </script>
 	    <script type="text/javascript">
 	         $('#titulo').attr('placeholder','TÍTULO');
+	    </script>
+	    <script type="text/javascript">
+	         $('#tags').attr('placeholder','TAGS:');
 	    </script>
 
 	    <h:commandButton action="#{clippingFaces.findEvent}" value="pesquisar" styleClass="botao-pesquisar"/>
