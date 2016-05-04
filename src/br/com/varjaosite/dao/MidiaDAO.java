@@ -230,8 +230,8 @@ public class MidiaDAO {
 		}
 		
 		if (!TSUtil.isEmpty(model.getMidia().getTags())) {
-
-			sql.append(" AND M.TAGS @> ARRAY[?]::text[]");
+			
+			sql.append(" AND SEM_ACENTOS(M.TAGS) ILIKE SEM_ACENTOS(?)");
 		}
 
 		sql.append(" AND CAST(M.DATA AS DATE) BETWEEN TO_DATE(?, 'DD/MM/YYYY') AND TO_DATE(?, 'DD/MM/YYYY')");
@@ -265,8 +265,8 @@ public class MidiaDAO {
 		}
 		
 		if (!TSUtil.isEmpty(model.getMidia().getTags())) {
-
-			broker.set(model.getMidia().getTags());
+			
+			broker.set("%" + model.getMidia().getTags() + "%");
 		}
 
 		broker.set(TSParseUtil.dateToString(model.getDataEnvio(), TSDateUtil.DD_MM_YYYY));
