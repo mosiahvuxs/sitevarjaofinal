@@ -52,7 +52,12 @@ public class JspFilter implements Filter {
 
 				if (cliente != null && midia != null) {
 
-					response.sendRedirect(request.getContextPath() + "/visualizacao.xhtml?cliente=" + TSCryptoUtil.criptografar(cliente) + "&midia=" + TSCryptoUtil.criptografar(midia) + "&codigoIntegracao=true");
+					try {
+						response.sendRedirect(request.getContextPath() + "/visualizacao.xhtml?cliente=" + TSCryptoUtil.criptografar(cliente) + "&midia=" + TSCryptoUtil.criptografar(midia) + "&codigoIntegracao=true");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 

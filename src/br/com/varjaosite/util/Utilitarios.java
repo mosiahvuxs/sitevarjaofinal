@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.Key;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Normalizer;
@@ -16,13 +17,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.tomcat.util.codec.binary.StringUtils;
 
+import br.com.topsys.exception.TSSystemException;
 import br.com.topsys.util.TSCryptoUtil;
 import br.com.topsys.util.TSDateUtil;
 import br.com.topsys.util.TSUtil;
@@ -86,7 +91,6 @@ public final class Utilitarios {
 		return senha;
 	}
 
-	@SuppressWarnings("resource")
 	public static byte[] getBytes(File file) {
 
 		int len = (int) file.length();
@@ -113,7 +117,6 @@ public final class Utilitarios {
 		return sendBuf;
 	}
 
-	@SuppressWarnings("resource")
 	public static byte[] getBytesDownload(File file, Date data, String arquivo) {
 
 		int len = (int) file.length();
@@ -263,5 +266,32 @@ public final class Utilitarios {
 
 		return valorFormatado;
 
+	}
+
+	public static String desCriptografar(String texto) {
+
+		String retorno = null;
+
+		try {
+			byte[] newPlainText = null;
+
+			if (texto == null) {
+				return null;
+			}
+			Key chave = new SecretKeySpec("top10sysSistemas".getBytes(), "AES");
+
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+
+			cipher.init(Cipher.DECRYPT_MODE, chave);
+
+			newPlainText = cipher.doFinal(DatatypeConverter.parseHexBinary(texto.replace("\\x", "")));
+
+			retorno = new String(newPlainText, "UTF8");
+
+		} catch (Exception e) {
+			throw new TSSystemException(e);
+		}
+
+		return retorno;
 	}
 }

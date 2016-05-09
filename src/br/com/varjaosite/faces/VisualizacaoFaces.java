@@ -14,8 +14,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JRException;
-
 import org.primefaces.model.StreamedContent;
 
 import br.com.topsys.exception.TSApplicationException;
@@ -33,7 +31,9 @@ import br.com.varjaosite.model.PdfWeb;
 import br.com.varjaosite.model.Usuario;
 import br.com.varjaosite.util.Constantes;
 import br.com.varjaosite.util.Utilitarios;
+import net.sf.jasperreports.engine.JRException;
 
+@SuppressWarnings("serial")
 @ViewScoped
 @ManagedBean(name = "visualizacaoFaces")
 public class VisualizacaoFaces extends TSMainFaces {
@@ -57,9 +57,27 @@ public class VisualizacaoFaces extends TSMainFaces {
 
 		String verificado = TSFacesUtil.getRequestParameter("verificado");
 
-		String clienteIdDescriptografado = TSCryptoUtil.desCriptografar(clienteId);
+		String clienteIdDescriptografado = null;
 
-		String midiaIdDescriptografado = TSCryptoUtil.desCriptografar(midiaId);
+		try {
+
+			clienteIdDescriptografado = TSCryptoUtil.desCriptografar(clienteId);
+
+		} catch (Exception e) {
+
+			clienteIdDescriptografado = Utilitarios.desCriptografar(clienteId);
+		}
+
+		String midiaIdDescriptografado = null;
+
+		try {
+
+			midiaIdDescriptografado = TSCryptoUtil.desCriptografar(midiaId);
+
+		} catch (Exception e) {
+
+			midiaIdDescriptografado = Utilitarios.desCriptografar(midiaId);
+		}
 
 		if (!TSUtil.isEmpty(clienteId) && !TSUtil.isEmpty(midiaId) && TSUtil.isNumeric(clienteIdDescriptografado) && TSUtil.isNumeric(midiaIdDescriptografado)) {
 
@@ -119,14 +137,13 @@ public class VisualizacaoFaces extends TSMainFaces {
 							}
 
 							/*
-							 * if
-							 * (this.midia.getTipoMidia().getId().equals(Constantes
-							 * .VIDEO)) {
+							 * if (this.midia.getTipoMidia().getId().equals(
+							 * Constantes .VIDEO)) {
 							 * 
 							 * try {
 							 * 
-							 * TSFacesUtil.getFacesContext().getExternalContext()
-							 * .redirect(this.midia.getArquivoFormatado());
+							 * TSFacesUtil.getFacesContext().getExternalContext(
+							 * ) .redirect(this.midia.getArquivoFormatado());
 							 * 
 							 * } catch (IOException e) {
 							 * 
@@ -186,7 +203,7 @@ public class VisualizacaoFaces extends TSMainFaces {
 			this.tratarArquivo();
 
 			super.addObjectInSession(Constantes.USUARIO_CONECTADO, cliente);
-			
+
 			TSFacesUtil.resetManagedBean("clippingFaces");
 
 			return true;
