@@ -1,12 +1,7 @@
 package br.com.varjaosite.filter;
 
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -57,26 +52,7 @@ public class JspFilter implements Filter {
 
 				if (cliente != null && midia != null) {
 
-					try {
-
-						response.sendRedirect(request.getContextPath() + "/visualizacao.xhtml?cliente=" + TSCryptoUtil.criptografar(cliente) + "&midia=" + TSCryptoUtil.criptografar(midia) + "&codigoIntegracao=true");
-
-					} catch (InvalidKeyException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (NoSuchPaddingException e) {
-
-						e.printStackTrace();
-					} catch (BadPaddingException e) {
-
-						e.printStackTrace();
-					} catch (NoSuchAlgorithmException e) {
-
-						e.printStackTrace();
-					} catch (IllegalBlockSizeException e) {
-
-						e.printStackTrace();
-					}
+					response.sendRedirect(request.getContextPath() + "/visualizacao.xhtml?cliente=" + TSCryptoUtil.criptografar(cliente) + "&midia=" + TSCryptoUtil.criptografar(midia) + "&codigoIntegracao=true");
 				}
 			}
 

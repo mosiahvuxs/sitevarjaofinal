@@ -31,7 +31,7 @@ public class LoginFaces extends TSMainFaces {
 
 	private String midiaId;
 
-	public LoginFaces() {
+	public LoginFaces() throws InvalidKeyException, UnsupportedEncodingException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException {
 
 		String idCliente = TSFacesUtil.getRequestParameter("cliente");
 
@@ -45,41 +45,19 @@ public class LoginFaces extends TSMainFaces {
 
 			String midiaIdDescriptografado;
 
-			try {
+			clienteIdDescriptografado = TSCryptoUtil.desCriptografar(idCliente);
 
-				clienteIdDescriptografado = TSCryptoUtil.desCriptografar(idCliente);
+			midiaIdDescriptografado = TSCryptoUtil.desCriptografar(idMidia);
 
-				midiaIdDescriptografado = TSCryptoUtil.desCriptografar(idMidia);
+			if (TSUtil.isNumeric(clienteIdDescriptografado) && TSUtil.isNumeric(midiaIdDescriptografado)) {
 
-				if (TSUtil.isNumeric(clienteIdDescriptografado) && TSUtil.isNumeric(midiaIdDescriptografado)) {
+				this.clienteId = idCliente;
 
-					this.clienteId = idCliente;
+				this.midiaId = idMidia;
 
-					this.midiaId = idMidia;
+			} else {
 
-				} else {
-
-					this.sair();
-				}
-
-			} catch (InvalidKeyException e) {
-
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
-
-				e.printStackTrace();
-			} catch (NoSuchPaddingException e) {
-
-				e.printStackTrace();
-			} catch (BadPaddingException e) {
-
-				e.printStackTrace();
-			} catch (NoSuchAlgorithmException e) {
-
-				e.printStackTrace();
-			} catch (IllegalBlockSizeException e) {
-
-				e.printStackTrace();
+				this.sair();
 			}
 
 		}
