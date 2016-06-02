@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Normalizer;
@@ -17,7 +19,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -27,7 +32,6 @@ import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.tomcat.util.codec.binary.StringUtils;
 
-import br.com.topsys.exception.TSSystemException;
 import br.com.topsys.util.TSCryptoUtil;
 import br.com.topsys.util.TSDateUtil;
 import br.com.topsys.util.TSUtil;
@@ -268,30 +272,38 @@ public final class Utilitarios {
 
 	}
 
-	public static String desCriptografar(String texto) {
+	public static String desCriptografar(String texto) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
 
 		String retorno = null;
 
-		try {
-			byte[] newPlainText = null;
+		byte[] newPlainText = null;
 
-			if (texto == null) {
-				return null;
-			}
-			Key chave = new SecretKeySpec("top10sysSistemas".getBytes(), "AES");
-
-			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-
-			cipher.init(Cipher.DECRYPT_MODE, chave);
-
-			newPlainText = cipher.doFinal(DatatypeConverter.parseHexBinary(texto.replace("\\x", "")));
-
-			retorno = new String(newPlainText, "UTF8");
-
-		} catch (Exception e) {
-			throw new TSSystemException(e);
+		if (texto == null) {
+			return null;
 		}
+		Key chave = new SecretKeySpec("top10sysSistemas".getBytes(), "AES");
+
+		Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+
+		cipher.init(Cipher.DECRYPT_MODE, chave);
+	
+		newPlainText = cipher.doFinal(DatatypeConverter.parseHexBinary(texto.replace("\\x", "")));
+
+		retorno = new String(newPlainText, "UTF8");
 
 		return retorno;
 	}
+
+	public static String criptografiaBase64(String texto) {
+
+		return Base64.encodeBase64String(texto.getBytes());
+
+	}
+
+	public static String descriptografiaBase64(String texto) {
+
+		return new String(Base64.decodeBase64(texto.getBytes()));
+
+	}
+
 }

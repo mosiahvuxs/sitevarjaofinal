@@ -1,11 +1,23 @@
 package br.com.varjaosite.util;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.tomcat.util.codec.binary.StringUtils;
 
+import br.com.topsys.util.TSCryptoUtil;
+
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InvalidKeyException, UnsupportedEncodingException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException {
+		
+		System.out.println(TSCryptoUtil.desCriptografar("1q6056431r75s4823o6849121s86454p69616s6r"));
 
 		String valorDecodificado = decode("eyJjbGllbnRlIjo3OCwiY29kaWdvIjo2OTM0Njl9");
 
