@@ -58,6 +58,11 @@ public class VisualizacaoFaces extends TSMainFaces {
 		String verificado = TSFacesUtil.getRequestParameter("verificado");
 
 		String clienteIdDescriptografado = null;
+		
+		if (!TSUtil.isEmpty(codigoIntegracao) && codigoIntegracao.equals("true")) {
+			
+			System.out.println("Descriptografia antiga da Varjão.");
+		}
 
 		try {
 
